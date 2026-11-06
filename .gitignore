@@ -1,1 +1,9 @@
-/build/
+.metadata/
+.settings/
+.classpath
+.project
+bin/
+build/
+target/
+.DS_Store
+Thumbs.db
