@@ -2,11 +2,17 @@ package ctrl;
 
 import java.io.IOException;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import model.Adventurer;
+import model.GuildManager;
 
 /**
  * Servlet implementation class CompleteServlet
@@ -55,8 +61,37 @@ public class CompleteServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		Adventurer adventurer = (Adventurer)session.getAttribute("adventurer");
+		
+		if (adventurer == null) {
+			response.sendRedirect("index.jsp");
+		} else {
+			String questType = request.getParameter("questType");
+			
+			GuildManager gm = new GuildManager();
+			int reward = gm.executeQuest(adventurer, questType);
+			
+			ServletContext application = this.getServletContext();
+			 Integer totalQuests = (Integer)application.getAttribute("totalQuests");
+			 
+			 
+			 if (totalQuests == null) {
+				 totalQuests = 1;
+			 } else {
+				 totalQuests ++;
+			 }
+			 
+			 application.setAttribute("totalQuests", totalQuests);
+			 
+			 request.setAttribute("reward", reward);
+			 
+			 RequestDispatcher rd  = request.getRequestDispatcher("/WEB-INF/jsp/quest.jsp");
+			 rd.forward(request, response);
+		}
+		
+		
 	}
 
 }

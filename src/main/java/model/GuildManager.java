@@ -25,5 +25,19 @@ package model;
 */
 
 public class GuildManager {
-
+	public int executeQuest(Adventurer ad, String questType ) {
+		int reward = 0;
+		if("dragon".equals(questType)) {
+			reward = 500; 
+		} else if ("goblin".equals(questType)) {
+			reward = 150;
+		} else if ("slime".equals(questType)) {
+			reward = 50;
+		} else {
+			reward = 10;
+		}
+		ad.setGold(ad.getGold() + reward);
+		
+		return reward;
+	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <%--
  ============================================================================
@@ -31,9 +32,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>クエスト受注・ステータス確認</title>
 </head>
 <body>
-
+	<h1>クエスト受注・ステータス確認</h1>
+	<p>名前：${ adventurer.name }<br>
+			職業：${ adventurer.job } <br>
+			現在の所持ゴールド：${ adventurer.gold }
+	</p>
+	<form action="CompleteServlet" method="post">
+		<select name="questType" id="questType">
+			<option value="" disabled selected>選択してください</option>
+			<option value="dragon">ドラゴン</option>
+			<option value="goblin">ゴブリン</option>
+			<option value="slime">スライム</option>
+			<option value="その他">その他</option>
+		</select>
+		<input type="submit" value="クエスト完了報告">
+	</form>
+	
+	
+	<c:choose>
+		<c:when test="${not empty reward }">
+			<p>クエスト成功！ 報酬として ${reward} Gold を獲得した！</p>
+		</c:when>
+	</c:choose>
+	
+	<p>現在のギルド全体クリア数：${ totalQuests }</p>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <%--
  ============================================================================
@@ -28,9 +29,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>冒険者登録フォーム</title>
 </head>
 <body>
+	<h1>冒険者登録フォーム</h1>
+	
 
+	
+	<c:choose>
+		<c:when test="${ not empty adventurer }">
+			<p>すでに登録済みです</p>
+			<a href="QuestServlet">クエスト画面へ進む</a>
+		</c:when>
+		
+		<c:otherwise>
+			<form action="QuestServlet" method="post">
+		氏名：<input type="text" name="name"><br>
+		職業：<select name="job" id="job">
+				  <option value="" disabled selected>選択してください</option>
+				  <option value="戦士">戦士</option>
+				  <option value="魔法使い">魔法使い</option>
+				  <option value="修道士">修道士</option>
+				</select><br>
+				<input type="submit" value="冒険者登録">
+	</form>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${ not empty totalQuests }">
+			<p>現在のギルド全体クリア数：${ totalQuests }</p>
+		</c:when>
+		<c:otherwise>
+			<p>まだ達成されたクエストはありません</p>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

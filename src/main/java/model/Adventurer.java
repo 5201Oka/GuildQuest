@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /*
 ============================================================================
 [仕様書 1] 冒険者モデル
@@ -20,6 +22,39 @@ package model;
 4. すべてのフィールドに対する Getter および Setter を定義すること。
 ============================================================================
 */
-public class Adventurer {
+public class Adventurer implements Serializable{
+	//フィールド
+	private String name;
+	private String job;
+	private int gold;
+	
+	public Adventurer() {
+		gold = 0;
+	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public int getGold() {
+		return gold;
+	}
+
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
+	
+	
 }
